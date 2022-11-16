@@ -1,0 +1,125 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.diff-choice {
+  display: flex;
+  flex-direction: column;
+}
+
+.diff-choice-submit {
+  margin-top: 10px;
+}
+
+.showSb {
+  margin-top: 20px;
+}
+
+.scoreboard {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: calc(50% - (520px / 2));
+  left: calc(50% - (900px / 2));
+  width: 900px;
+  height: 520px;
+  background-color: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  z-index: 100;
+
+  animation: showNoneScale 0.5s;
+}
+
+.scoreboard > nav {
+  display: flex;
+  flex-basis: 50px;
+  align-items: center;
+  justify-content: space-around;
+  height: 50px;
+}
+
+.btn-sb {
+  background-color: transparent;
+  border: none;
+  flex-grow: 1;
+  height: 50px;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+
+  transition: all 0.2s;
+}
+
+.btn-sb:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.btn-sb:active {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-sb-active {
+  border-bottom: rgba(0, 0, 0, 0.2);
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+
+  transition: all 0.2s;
+}
+
+.scoreboard-sorted {
+  display: flex;
+  flex-flow: column;
+  height: 1px;
+  flex-grow: 1;
+}
+
+.scoreboard-sorted > thead {
+  width: 100%;
+  border-bottom: 1px solid #5e5e5e;
+  height: 35px;
+}
+
+.scoreboard-sorted > tbody {
+  flex: 1 1 auto;
+  display: block;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.scoreboard-sorted > tbody > tr {
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+
+.scoreboard-sorted > tbody > tr::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  height: 1px;
+  width: 80%;
+  border-bottom: 1px solid #7e7e7e;
+}
+
+.scoreboard-sorted > tbody > tr:not(.none):last-child::after {
+  border: none;
+}
+
+.scoreboard-sorted > thead,
+.scoreboard-sorted > tbody > tr {
+  display: table;
+  table-layout: fixed;
+}
+
+td,
+th {
+  width: 100%;
+}

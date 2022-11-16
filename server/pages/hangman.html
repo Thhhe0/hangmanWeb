@@ -1,0 +1,84 @@
+{{ define "body" }}
+<script>
+  const inGame = {{ .Game.InGame }}
+</script>
+<div class="container">
+  {{ if eq .Game.InGame false }}
+  <div class="end-game">
+    {{ if gt .Game.Attempt 0 }}
+    <h1>You Win !</h1>
+    {{ else }}
+    <h1>You Lose !</h1>
+    {{ end }}
+    <form action="/score" method="POST" class="send-score">
+      <label>
+        <span class="bold">Ajouter au scoreboard</span>
+        <input type="text" name="name" placeholder="Pseudo" class="nick text-box">
+        <button type="submit" value="submit" class="btn bg-blue">Envoyer</button>
+      </label>
+    </form>
+    <a href="/"><button class="home btn bg-orange">Accueil</button></a>
+  </div>
+
+  <div class="bg"></div>
+  {{ end }}
+
+  <div class="game">
+    <div class="word">
+      {{ .Game.Word.HiddenWordString }}
+    </div>
+
+    <form action="/hangman" method="POST" class="letter-form">
+      <input type="text" name="letter" class="letter text-box" placeholder="Lettre" {{ if eq .Game.InGame false}}
+        disabled {{ end }}>
+      <button type="submit" class="letter-form-submit btn bg-green" {{ if eq .Game.InGame false }} disabled {{ end
+        }}>Envoyer</button>
+    </form>
+    <div class="tried-letter">
+      {{ range .Game.TriedLetter}}
+      {{ . }}
+      {{ end }}
+    </div>
+  </div>
+
+  <svg height="250" width="200" class="figure-container">
+    <!-- Base -->
+    {{ if lt .Game.Attempt 10 }}
+    <line x1="20" y1="230" x2="100" y2="230" />
+    {{ end }}
+    <!-- Rest -->
+    {{ if lt .Game.Attempt 9 }}
+    <line x1="60" y1="20" x2="60" y2="230" />
+    {{ end }}
+    {{ if lt .Game.Attempt 8 }}
+    <line x1="60" y1="20" x2="140" y2="20" />
+    {{ end }}
+    {{ if lt .Game.Attempt 7 }}
+    <line x1="140" y1="20" x2="140" y2="50" />
+    {{ end }}
+
+    <!-- Head -->
+    {{ if lt .Game.Attempt 6 }}
+    <circle cx="140" cy="70" r="20" class="figure-part" />
+    {{ end }}
+    <!-- Body -->
+    {{ if lt .Game.Attempt 5 }}
+    <line x1="140" y1="90" x2="140" y2="150" class="figure-part" />
+    {{ end }}
+    <!-- Arms -->
+    {{ if lt .Game.Attempt 4 }}
+    <line x1="140" y1="120" x2="120" y2="100" class="figure-part" />
+    {{ end }}
+    {{ if lt .Game.Attempt 3 }}
+    <line x1="140" y1="120" x2="160" y2="100" class="figure-part" />
+    {{ end }}
+    <!-- Legs -->
+    {{ if lt .Game.Attempt 2 }}
+    <line x1="140" y1="150" x2="120" y2="180" class="figure-part" />
+    {{ end }}
+    {{ if lt .Game.Attempt 1 }}
+    <line x1="140" y1="150" x2="160" y2="180" class="figure-part" />
+    {{ end }}
+  </svg>
+</div>
+{{ end }}

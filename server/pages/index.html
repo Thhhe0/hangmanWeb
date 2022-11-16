@@ -1,0 +1,50 @@
+{{ define "body" }}
+
+<div class="container">
+    <h1>Hangman-WEB</h1>
+    <form action="/restart" method="POST" class="diff-choice">
+        <div class="btn-container">
+            <label>
+                <input type="radio" name="difficulty" value="1" checked>
+                <span>Facile</span>
+            </label>
+            <label>
+                <input type="radio" name="difficulty" value="2">
+                <span>Normale</span>
+            </label>
+            <label>
+                <input type="radio" name="difficulty" value="3">
+                <span>Difficile</span>
+            </label>
+        </div>
+        <button type="submit" class="diff-choice-submit btn bg-green">Jouer</button>
+    </form>
+    <button class="showSb btn bg-blue">Tableau des Scores</button>
+    <div class="scoreboard none">
+        <nav>
+            <button class="btn-sb btn-easy">Facile</button>
+            <button class="btn-sb btn-normal">Normale</button>
+            <button class="btn-sb btn-hard">Difficile</button>
+        </nav>
+        <table class="scoreboard-sorted">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Erreur</th>
+                    <th>Difficulté</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range $v := .Scoreboard }}
+                <tr data-difficulty="{{ $v.DifficultyId }}">
+                    <td>{{ $v.Name }}</td>
+                    <td>{{ $v.Miss }}</td>
+                    <td>{{ $v.Difficulty }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+    <div class="bg none"></div>
+</div>
+{{ end }}
